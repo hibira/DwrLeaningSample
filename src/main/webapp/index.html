@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<title>DWR LEARNING SAMPLE</title>
+<meta charset="UTF-8">
+<script src='resource/jquery-3.2.1.js'></script>
+<script src='dwr/engine.js'></script>
+<script src='dwr/util.js'></script>
+<script src='dwr/interface/HelloWorld.js'></script>
+<script type="text/javascript">
+	function sendName() {
+		var name = dwr.util.getValue("name");
+		HelloWorld.sayHello(name, callback);
+
+		function callback(message) {
+			dwr.util.setValue("message", message);
+		}
+	}
+	function uploadFile() {
+        if($('#file').val()!='' && $('#file').val() != ''){
+            var file = dwr.util.getValue('file');
+            HelloWorld.uploadFile(file, $("#file").val(), function(uploaded){
+            	alert(uploaded);
+            });
+        }else{
+            alert("Debes seleccionar un archivo antes de tratar de subirlo");
+        }
+    }
+	function uploadFiles() {
+        if($('#files').val()!='' && $('#files').val() != ''){
+            var file = dwr.util.getValue('files');
+            HelloWorld.uploadFile(file, $("#files").val(), function(uploaded){
+            	alert(uploaded);
+            });
+        }else{
+            alert("Debes seleccionar un archivo antes de tratar de subirlo");
+        }
+    }
+</script>
+</head>
+<body>
+	AJAX
+	<input type="text" id="name">
+	<input type="button" value="占う" onclick="sendName()" />
+	<p />
+	運勢
+	<div id="message"></div>
+	FILE UPLOAD
+	<input type="file" id="file" name="file[]" multiple="multiple" onchange="uploadFile();"/>
+
+	MULTI FILE UPLOAD
+	<input type="file" id="files" name="files[]" multiple="multiple" onchange="uploadFiles();"/>
+</body>
+</html>
